@@ -9,13 +9,16 @@ public class GameController : MonoBehaviour
 	public int winScore = 1000;
 	public int waves = 0;
 	public float levelTime = 300f;
+	public float enemyRespawnTime = 0.5f;
 	public float allayRespawnTime = 3f;
 	public GameObject allay;
 	public GameObject enemy;
 	public Transform[] enemySpawns;
 	public Transform allaySpawn;
-
+	
+	private int enemiesToSpawnLeft = 0;
 	private float countdown;
+	private float enemyRespawnCountdown;
 	private float allayRespawnCountdown;
 	private float[] buttonsState = {0f, 0f};
 
@@ -24,6 +27,7 @@ public class GameController : MonoBehaviour
 	{
 		countdown = levelTime;
 		allayRespawnCountdown = allayRespawnTime;
+		enemyRespawnCountdown = enemyRespawnTime;
 	}
 	
 	// Update is called once per frame
@@ -51,6 +55,7 @@ public class GameController : MonoBehaviour
 		if ((levelTime - countdown > waves * 20 ) && EnemyController.enemies.Count < 3) {
 			SpawnWave();
 		}
+		EnemySpawner();
 
 		if (allayRespawnCountdown <= 0) {
 			RespawnAllies();
@@ -65,17 +70,23 @@ public class GameController : MonoBehaviour
 		//1...4
 		double difficulty = 1 + 1.0 * (levelTime - countdown) / levelTime + 2.0 * score / winScore;
 		int count = Mathf.FloorToInt(3 * (float)difficulty);
+		enemiesToSpawnLeft += count;
 		int attack = Mathf.RoundToInt(5 + (float)difficulty);
 		int hp = Mathf.RoundToInt(300 * (float)difficulty / count);
 
 		enemy.GetComponent<UnitController>().healthMax = hp;
 		enemy.GetComponent<UnitController>().damage = attack;
+	}
 
-		for(int i = 0; i < count; i++)
-		{
+	void EnemySpawner() {
+		enemyRespawnCountdown -= Time.deltaTime;
+		bool needSpawn = enemiesToSpawnLeft > 0 && enemyRespawnCountdown <= 0;
+		if (needSpawn) {
 			int gate = Random.Range(0, enemySpawns.Length);
 			enemy.transform.position = enemySpawns[gate].position;
 			GameObject newEnemy = Object.Instantiate(enemy) as GameObject;
+			enemyRespawnCountdown = enemyRespawnTime;
+			enemiesToSpawnLeft--;
 		}
 	}
 
