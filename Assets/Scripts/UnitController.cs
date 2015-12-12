@@ -23,7 +23,7 @@ public abstract class UnitController : MonoBehaviour {
 	
 	public void Move() {
 		float usedSpeed = facingRight ? speed : speed * -1;
-		bool pathIsBlocked = Physics2D.Linecast(transform.position, enemyChecker.position, gameObject.layer);
+		bool pathIsBlocked = Physics2D.Linecast(enemyChecker.position, enemyChecker.position, 1 << gameObject.layer);
 		if (!pathIsBlocked) {
 			_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
 		}
