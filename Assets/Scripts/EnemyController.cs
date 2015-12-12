@@ -5,9 +5,9 @@ public class EnemyController : UnitController
 {
 
 	// Use this for initialization
-	void Start()
+	public override void Start()
 	{
-		_Init();
+		base.Start();
 	}
 	
 	// Update is called once per frame
@@ -15,8 +15,12 @@ public class EnemyController : UnitController
 	{
 		_FixedUpdate();
 		bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
+		cooldown -= Time.deltaTime;
+		print (cooldown);
 		if (!enemyIsNear) {
-			_Move();
+			Move();
+		} else if(cooldown <= 0) {
+			Hit();
 		}
 
 //		_Move();
