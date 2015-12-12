@@ -20,7 +20,6 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		SpawnWave();
 		countdown = levelTime;
 	}
 	
@@ -36,12 +35,17 @@ public class GameController : MonoBehaviour
 				print("Left Btn pressed");
 			}
 		}
+
 		float rightBtn = Input.GetAxis("Fire2");
 		if (rightBtn != buttonsState[1]) {
 			buttonsState[1] = rightBtn;
 			if (rightBtn == 1) {
 				print("Right Btn pressed");
 			}
+		}
+
+		if ((levelTime - countdown > waves * 20 ) && EnemyController.enemies.Count < 3) {
+			SpawnWave();
 		}
 	}
 
@@ -52,7 +56,7 @@ public class GameController : MonoBehaviour
 		double difficulty = 1 + 1.0 * (levelTime - countdown) / levelTime + 2.0 * score / winScore;
 		int count = Mathf.FloorToInt(3 * (float)difficulty);
 		int attack = Mathf.RoundToInt(5 + (float)difficulty);
-		int hp = Mathf.RoundToInt(150 * (float)difficulty / count);
+		int hp = Mathf.RoundToInt(300 * (float)difficulty / count);
 
 		enemy.GetComponent<UnitController>().healthMax = hp;
 		enemy.GetComponent<UnitController>().damage = attack;
@@ -63,6 +67,10 @@ public class GameController : MonoBehaviour
 			enemy.transform.position = enemySpawns[gate].position;
 			GameObject newEnemy = Object.Instantiate(enemy) as GameObject;
 		}
+	}
+
+	void RespawnAllies() {
+		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
 	}
 }
 
