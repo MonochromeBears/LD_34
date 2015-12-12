@@ -10,11 +10,22 @@ public class AllayController : UnitController
 		ATTACK
 	}
 	public static List<AllayController> allies = new List<AllayController>();	Order order;
+	public float orderTimeLeft;
+
 	// Use this for initialization
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		if (order != Order.NONE) {
+			orderTimeLeft -= Time.deltaTime;
+			if (orderTimeLeft < 0 ) {
+				if (order == Order.ATTACK) {
+					damage /= 2;
+				}
+				order = Order.NONE;
+			}
+		}
 		if (order != Order.BUILD) {
 			if (EnemyController.enemies.Count > 0 ) {
 				FindTargetEnemy();
@@ -35,6 +46,15 @@ public class AllayController : UnitController
 	//for buttons usage
 	public static AllayController SelectFreeAlly() {
 		return allies.Find(a => a.order == Order.NONE);
+	}
+
+	//issue an order
+	public void changeOrder(Order ord, int duration) {
+		this.order = ord;
+		this.orderTimeLeft = duration;
+		if (ord == Order.ATTACK) {
+			this.damage *= 2;
+		}
 	}
 
 	//set enemy value
