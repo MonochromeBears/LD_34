@@ -22,7 +22,7 @@ public class AllayController : UnitController
 			if (orderTimeLeft < 0 ) {
 				if (order == Order.ATTACK) {
 					damage /= 2;
-					this.transform.localScale = 1;
+					this.transform.localScale = new Vector3(this.transform.localScale.x, 3, this.transform.localScale.z);
 				}
 				order = Order.NONE;
 			}
@@ -55,7 +55,7 @@ public class AllayController : UnitController
 		this.orderTimeLeft = duration;
 		if (ord == Order.ATTACK) {
 			this.damage *= 2;
-			this.transform.localScale = 2;
+			this.transform.localScale = new Vector3(this.transform.localScale.x, 6, this.transform.localScale.z);
 		}
 	}
 
