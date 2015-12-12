@@ -48,6 +48,10 @@ public class GameController : MonoBehaviour
 		if (rightBtn != buttonsState[1]) {
 			buttonsState[1] = rightBtn;
 			if (rightBtn == 1) {
+				AllayController ally = AllayController.SelectFreeAlly();
+				if (ally != null ) {
+					ally.changeOrder(AllayController.Order.ATTACK, 30);
+				}
 				print("Right Btn pressed");
 			}
 		}
