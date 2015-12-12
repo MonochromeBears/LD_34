@@ -23,7 +23,10 @@ public abstract class UnitController : MonoBehaviour {
 	
 	public void Move() {
 		float usedSpeed = facingRight ? speed : speed * -1;
-		_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
+		bool pathIsBlocked = Physics2D.Linecast(transform.position, enemyChecker.position, gameObject.layer);
+		if (!pathIsBlocked) {
+			_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
+		}
 	}
 
 	private void _Flip() {
@@ -46,7 +49,7 @@ public abstract class UnitController : MonoBehaviour {
 		_health = healthMax;
 		_rigidbody2D = GetComponent<Rigidbody2D>();
 	}
-	
+
 	protected virtual void _FixedUpdate() {
 		if(_health <= 0) {
 			_Death();
