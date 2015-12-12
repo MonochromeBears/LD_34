@@ -42,11 +42,8 @@ public class AllayController : UnitController
 			= allies.FindAll(ally => ally.transform.position.x <= transform.position.x).Count;
 		int alliesRight
 			= allies.FindAll(ally => ally.transform.position.x >= transform.position.x).Count;
-		//TODO: change to real list
-		List<EnemyController> enemies = new List<EnemyController>();
-		enemies.Add((EnemyController) enemy);
-		EnemyController enemyClosest = enemies[0];
-		foreach (EnemyController en in enemies ) {
+		EnemyController enemyClosest = EnemyController.enemies[0];
+		foreach (EnemyController en in EnemyController.enemies ) {
 			if (alliesLeft == alliesRight ) {
 				if(Dist(en) < Dist(enemyClosest)) {
 					enemyClosest = en;
