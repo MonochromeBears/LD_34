@@ -69,8 +69,15 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	void RespawnAllies() {
+	void RespawnAllies()
+	{
 		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
+	}
+
+	void OnGUI()
+	{
+		GUI.Box(new Rect (0, 0, 200, 25), "Left time: " + (countdown / 60));
+		GUI.Box(new Rect (0, 25, 200, 25), "Score: " + (score));
 	}
 }
 
