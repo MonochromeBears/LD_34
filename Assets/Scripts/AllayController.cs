@@ -15,18 +15,19 @@ public class AllayController : UnitController
 	// Update is called once per frame
 	void Update ()
 	{
-		//TODO: check if enemies are there at all
 		if (order != Order.BUILD) {
-			FindTargetEnemy();
+			if (EnemyController.enemies.Count > 0 ) {
+				FindTargetEnemy();
 
-			_FixedUpdate();
+				_FixedUpdate();
 
-			bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
-			cooldown -= Time.deltaTime;
-			if (!enemyIsNear) {
-				Move();
-			} else if(cooldown <= 0) {
-				Hit();
+				bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
+				cooldown -= Time.deltaTime;
+				if (!enemyIsNear) {
+					Move();
+				} else if(cooldown <= 0) {
+					Hit();
+				}
 			}
 		}
 	}
@@ -63,10 +64,6 @@ public class AllayController : UnitController
 			}
 		}
 		enemy = enemyClosest;
-	}
-				  
-	float Dist(UnitController other) {
-		return Mathf.Abs(other.transform.position.x - transform.position.x);
 	}
 	public override void Start ()
 	{
