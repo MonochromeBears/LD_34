@@ -9,24 +9,28 @@ public class GameController : MonoBehaviour
 	public int winScore = 1000;
 	public int waves = 0;
 	public float levelTime = 300f;
+	public float allayRespawnTime = 3f;
 	public GameObject allay;
 	public GameObject enemy;
 	public Transform[] enemySpawns;
 	public Transform allaySpawn;
 
 	private float countdown;
+	private float allayRespawnCountdown;
 	private float[] buttonsState = {0f, 0f};
 
 	// Use this for initialization
 	void Start ()
 	{
 		countdown = levelTime;
+		allayRespawnCountdown = allayRespawnTime;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		countdown -= Time.deltaTime;
+		allayRespawnCountdown -= Time.deltaTime;
 
 		float leftBtn = Input.GetAxis("Fire1");
 		if (leftBtn != buttonsState[0]) {
@@ -47,6 +51,12 @@ public class GameController : MonoBehaviour
 		if ((levelTime - countdown > waves * 20 ) && EnemyController.enemies.Count < 3) {
 			SpawnWave();
 		}
+
+		if (allayRespawnCountdown <= 0) {
+			RespawnAllies();
+			allayRespawnCountdown = allayRespawnTime;
+		}
+
 	}
 
 	void SpawnWave()
