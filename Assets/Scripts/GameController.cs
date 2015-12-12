@@ -71,6 +71,11 @@ public class GameController : MonoBehaviour
 
 	void RespawnAllies() {
 		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
+		if (AllayController.allies.Count < maxAllies) {
+			allay.transform.position = allaySpawn.position;
+			allay.GetComponent<UnitController>().damage = 20 + rages;
+			GameObject newAlly = Object.Instantiate(allay) as GameObject;
+		}
 	}
 }
 

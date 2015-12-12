@@ -39,10 +39,14 @@ public class AllayController : UnitController
 
 	//set enemy value
 	void FindTargetEnemy() {
-		int alliesLeft
-			= allies.FindAll(ally => ally.transform.position.x <= transform.position.x).Count;
-		int alliesRight
-			= allies.FindAll(ally => ally.transform.position.x >= transform.position.x).Count;
+		int alliesLeft = allies
+			.FindAll(ally => ally.transform.position.x <= transform.position.x)
+			.FindAll(ally => ally.order != Order.BUILD)
+			.Count;
+		int alliesRight = allies
+			.FindAll(ally => ally.transform.position.x >= transform.position.x)
+			.FindAll(ally => ally.order != Order.BUILD)
+			.Count;
 		EnemyController enemyClosest = EnemyController.enemies[0];
 		foreach (EnemyController en in EnemyController.enemies ) {
 			if (alliesLeft == alliesRight ) {
