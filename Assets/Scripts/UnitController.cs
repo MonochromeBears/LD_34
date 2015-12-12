@@ -61,4 +61,8 @@ public abstract class UnitController : MonoBehaviour {
 			_Flip();
 		}
 	}
+	
+	protected float Dist(UnitController other) {
+		return Mathf.Abs(other.transform.position.x - transform.position.x);
+	}
 }

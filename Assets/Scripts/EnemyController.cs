@@ -10,13 +10,16 @@ public class EnemyController : UnitController
 	// Update is called once per frame
 	void Update()
 	{
-		_FixedUpdate();
-		bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
-		cooldown -= Time.deltaTime;
-		if (!enemyIsNear) {
-			Move();
-		} else if(cooldown <= 0) {
-			Hit();
+		if (AllayController.allies.Count > 0) {
+			findNearestAlly();
+			_FixedUpdate();
+			bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
+			cooldown -= Time.deltaTime;
+			if (!enemyIsNear) {
+				Move();
+			} else if(cooldown <= 0) {
+				Hit();
+			}
 		}
 
 //		_Move();
@@ -36,5 +39,14 @@ public class EnemyController : UnitController
 		base._Death();
 	}
 
+	void findNearestAlly() {
+		AllayController enemyClosest = AllayController.allies[0];
+		foreach (AllayController en in AllayController.allies ) {
+			if(Dist(en) < Dist(enemyClosest)) {
+				enemyClosest = en;
+	      	}
+	    }
+	    enemy = enemyClosest;
+	}
 }
 
