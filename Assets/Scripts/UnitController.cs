@@ -28,6 +28,9 @@ public abstract class UnitController : MonoBehaviour {
 	
 	public virtual void _Death() {
 		DestroyObject(this.gameObject);
+		if (AllayController.allies.Contains(this)) {
+			AllayController.allies.Remove(this);
+		}
 	}
 	
 	protected virtual void _Init() {
