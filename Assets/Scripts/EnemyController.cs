@@ -1,14 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyController : UnitController
 {
-
+	public static List<EnemyController> enemies = new List<EnemyController>();
 	// Use this for initialization
-	public override void Start()
-	{
-		base.Start();
-	}
 	
 	// Update is called once per frame
 	void Update()
@@ -16,7 +13,6 @@ public class EnemyController : UnitController
 		_FixedUpdate();
 		bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
 		cooldown -= Time.deltaTime;
-		print (cooldown);
 		if (!enemyIsNear) {
 			Move();
 		} else if(cooldown <= 0) {
@@ -25,5 +21,20 @@ public class EnemyController : UnitController
 
 //		_Move();
 	}
+
+	public override void Start()
+	{
+		base.Start();
+		enemies.Add(this);
+	}
+
+	public override void _Death()
+	{
+		if (EnemyController.enemies.Contains(this)) {
+			EnemyController.enemies.Remove(this);
+		}
+		base._Death();
+	}
+
 }
 

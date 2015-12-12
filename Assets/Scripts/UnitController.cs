@@ -8,13 +8,13 @@ public abstract class UnitController : MonoBehaviour {
 	public float hitSpeed = 0.5f;
 	public float speed = 5.0f;
 	public UnitController enemy;
-	public Transform enemyChecker;
 	public LayerMask whatIsEnemy;
+	public bool facingRight = false;
 
 	protected int _health;
-	protected bool _facingRight = false;
 	protected Rigidbody2D _rigidbody2D;
 	protected float cooldown = 0;
+	protected Transform enemyChecker;
 	
 	public void Hit() {
 		enemy.TakeADamage(damage);
@@ -22,12 +22,12 @@ public abstract class UnitController : MonoBehaviour {
 	}
 	
 	public void Move() {
-		float usedSpeed = _facingRight ? speed : speed * -1;
+		float usedSpeed = facingRight ? speed : speed * -1;
 		_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
 	}
 
 	private void _Flip() {
-		_facingRight = !_facingRight;
+		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
 		transform.localScale = theScale;
@@ -57,7 +57,7 @@ public abstract class UnitController : MonoBehaviour {
 	
 	protected virtual void _updateDirection() {
 		bool enemyAtRight = enemy.transform.position.x >= transform.position.x;
-		if (enemyAtRight != _facingRight) {
+		if (enemyAtRight != facingRight) {
 			_Flip();
 		}
 	}
