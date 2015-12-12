@@ -53,13 +53,13 @@ public class AllayController : UnitController
 				if(Dist(en) < Dist(enemyClosest)) {
 					enemyClosest = en;
 				}
-			} else if (alliesLeft < alliesRight ) {
+			} else if (alliesLeft > alliesRight ) {
 				if (en.transform.position.x >= transform.position.x) {
 					if ((Dist(en) < Dist(enemyClosest)) || (enemyClosest.transform.position.x < transform.position.x)) {
 						enemyClosest = en;
 					}
 				}
-			} else if (alliesLeft > alliesRight ) {				
+			} else if (alliesLeft < alliesRight ) {				
 				if (en.transform.position.x < transform.position.x) {
 					if ((Dist(en) < Dist(enemyClosest)) || (enemyClosest.transform.position.x >= transform.position.x)) {
 						enemyClosest = en;
