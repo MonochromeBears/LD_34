@@ -15,6 +15,7 @@ public class GameController : MonoBehaviour
 	public Transform allaySpawn;
 
 	private float countdown;
+	private int[] buttonsState = {0, 0};
 
 	// Use this for initialization
 	void Start ()
@@ -27,6 +28,21 @@ public class GameController : MonoBehaviour
 	void Update ()
 	{
 		countdown -= Time.deltaTime;
+
+		int leftBtn = Input.GetAxis("Fire1");
+		if (leftBtn != buttonsState[0]) {
+			buttonsState[0] = leftBtn;
+			if (leftBtn == 1) {
+				print("Left Btn pressed");
+			}
+		}
+		int rightBtn = Input.GetAxis("Fire2");
+		if (rightBtn != buttonsState[1]) {
+			buttonsState[1] = rightBtn;
+			if (rightBtn == 1) {
+				print("Left Btn pressed");
+			}
+		}
 	}
 
 	void SpawnWave()
