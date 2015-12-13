@@ -30,6 +30,8 @@ public class GameController : MonoBehaviour
 	private float[] buttonsState = {0f, 0f};
 	private float scoreBarPosYStart;
 	private float scoreBarHeight = 348;
+	private float timeBarPosYStart;
+	private float timeBarHeight = 348;
 
 	public static Transform alySpawn;
 	public static int hits = 0;
@@ -37,6 +39,7 @@ public class GameController : MonoBehaviour
 	void Start ()
 	{
 		scoreBarHeight = scoreBar.GetComponent<SpriteRenderer>().bounds.size.y;
+		timeBarHeight = timeBar.GetComponent<SpriteRenderer>().bounds.size.y;
 		countdown = levelTime;
 		allayRespawnCountdown = allayRespawnTime;
 		enemyRespawnCountdown = enemyRespawnTime;
@@ -50,6 +53,7 @@ public class GameController : MonoBehaviour
 		currentMushroom = -1;
 		currentBuildings = -1;
 		scoreBarPosYStart = scoreBar.transform.position.y;
+		timeBarPosYStart = timeBar.transform.position.y;
 	}
 	
 	// Update is called once per frame
@@ -184,6 +188,8 @@ public class GameController : MonoBehaviour
 		float posScoreY = scoreBarPosYStart + scorebareScale * scoreBarHeight / 2 - scoreBarHeight/2;
 		scoreBar.position = new Vector3(scoreBar.position.x, posScoreY, scoreBar.position.z);
 		float sunbareScale = (levelTime - countdown) / levelTime;
+		float posTimeY = timeBarPosYStart + sunbareScale * timeBarHeight / 2 - timeBarHeight/2;
+		timeBar.position = new Vector3(timeBar.position.x, posTimeY, timeBar.position.z);
 		timeBar.localScale = new Vector3(timeBar.localScale.x, sunbareScale, timeBar.localScale.z);
 	}
 
