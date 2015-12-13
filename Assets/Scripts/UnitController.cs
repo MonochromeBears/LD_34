@@ -12,6 +12,7 @@ public abstract class UnitController : MonoBehaviour {
 	public LayerMask whatIsEnemy;
 	public bool facingRight = false;
 	public Animator animator;
+	public AudioSource hitSound;
 
 	protected int _health;
 	protected Rigidbody2D _rigidbody2D;
@@ -24,6 +25,7 @@ public abstract class UnitController : MonoBehaviour {
 		enemy.TakeADamage(damage);
 		cooldown = hitSpeed;
 		animator.SetBool("isHit", true);
+		hitSound.Play();
 	}
 	
 	public void Move() {

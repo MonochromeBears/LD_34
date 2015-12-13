@@ -14,6 +14,7 @@ public class AllayController : UnitController
 	public bool isBuilding = false;
 	public Transform heal;
 	public Transform rage;
+	public AudioSource berserkSound;
 
 	// Use this for initialization
 	
@@ -92,6 +93,7 @@ public class AllayController : UnitController
 		if (ord == Order.ATTACK) {
 			this.damage *= 2;
 			rage.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
+			berserkSound.Play();
 		}
 		if (ord == Order.BUILD) {
 			heal.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
