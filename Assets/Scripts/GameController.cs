@@ -60,10 +60,15 @@ public class GameController : MonoBehaviour
 	void Update ()
 	{
 		if (score >= winScore) {
-			Application.LoadLevel(3);
+			AllayController.allies.Clear();
+			EnemyController.enemies.Clear();
+			Application.LoadLevel(2);
+
 		}
 		if (countdown <= 0) {
-			Application.LoadLevel(4);
+			AllayController.allies.Clear();
+			EnemyController.enemies.Clear();
+			Application.LoadLevel(3);
 		}
 		countdown -= Time.deltaTime;
 		allayRespawnCountdown -= Time.deltaTime;
@@ -92,7 +97,7 @@ public class GameController : MonoBehaviour
 			}
 		}
 
-		if ((levelTime - countdown > waves * 20 ) && EnemyController.enemies.Count < 3) {
+		if ((levelTime - countdown > waves * 20 ) && EnemyController.enemies.Count < 3 && (countdown < levelTime - 5)) {
 			SpawnWave();
 		}
 		EnemySpawner();
@@ -177,7 +182,7 @@ public class GameController : MonoBehaviour
 				GameObject newAlly = Object.Instantiate(allay) as GameObject;
 			}
 		} else {
-			respawnLock = 16f;	//respawn start delay
+			respawnLock = 8f;	//respawn start delay
 		}
 	}
 

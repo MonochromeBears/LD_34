@@ -19,8 +19,9 @@ public class EnemyController : UnitController
 			findNearestAlly();
 			_FixedUpdate();
 			bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
+			bool enemy2IsNear = Physics2D.Linecast(transform.position, enemyChecker.position, 1 << LayerMask.NameToLayer("Water"));
 			cooldown -= Time.deltaTime;
-			if (!enemyIsNear) {
+			if (!enemyIsNear && !enemy2IsNear) {
 				Move();
 			} else if(cooldown <= 0) {
 				Hit();
