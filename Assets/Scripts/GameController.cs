@@ -9,8 +9,8 @@ public class GameController : MonoBehaviour
 	public int winScore = 500;
 	public int waves = 0;
 	public float levelTime = 300f;
-	public float enemyRespawnTime = 0.5f;
-	public float allayRespawnTime = 1f;
+	public float enemyRespawnTime = 1f;
+	public float allayRespawnTime = 2f;
 	public float respawnLock = 0f;
 	public GameObject allay;
 	public GameObject enemy;
@@ -134,7 +134,7 @@ public class GameController : MonoBehaviour
 		double difficulty = 1 + 1.0 * (levelTime - countdown) / levelTime + 2.0 * score / winScore;
 		int count = Mathf.FloorToInt(3 * (float)difficulty);
 		enemiesToSpawnLeft += count;
-		int attack = Mathf.RoundToInt(5 + (float)difficulty);
+		int attack = Mathf.RoundToInt(3 + (float)difficulty);
 		int hp = Mathf.RoundToInt(300 * (float)difficulty / count);
 
 		enemy.GetComponent<UnitController>().healthMax = hp;
@@ -158,14 +158,15 @@ public class GameController : MonoBehaviour
 		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
 		if (AllayController.allies.Count < maxAllies) {			
 			if (respawnLock > 0 ) {
-				respawnLock -= 1;
+				respawnLock -= 2;
 			} else {
 				allay.transform.position = allaySpawn.position;
+				allay.GetComponent<UnitController>().healthMax = 100;
 				allay.GetComponent<UnitController>().damage = 20 + rages;
 				GameObject newAlly = Object.Instantiate(allay) as GameObject;
 			}
 		} else {
-			respawnLock = 10f;	//respawn start delay
+			respawnLock = 16f;	//respawn start delay
 		}
 	}
 
