@@ -6,7 +6,7 @@ public class GameController : MonoBehaviour
 	public int score = 0;
 	public int rages = 0;
 	public int builds = 0;
-	public int winScore = 1000;
+	public int winScore = 500;
 	public int waves = 0;
 	public float levelTime = 300f;
 	public float enemyRespawnTime = 0.5f;
@@ -18,8 +18,8 @@ public class GameController : MonoBehaviour
 	public Transform allaySpawn;
 	public Transform[] bigMushroom;
 	public Transform[] buildingsAndShit;
-	public int currentMushroom = 0;
-	public int currentBuildings = 0;
+	public int currentMushroom = -1;
+	public int currentBuildings = -1;
 	
 	private int enemiesToSpawnLeft = 0;
 	private float countdown;
@@ -42,6 +42,8 @@ public class GameController : MonoBehaviour
 		foreach (Transform trans in buildingsAndShit ) {
 			trans.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 		}
+		currentMushroom = -1;
+		currentBuildings = -1;
 	}
 	
 	// Update is called once per frame
@@ -104,16 +106,18 @@ public class GameController : MonoBehaviour
 
 	//score
 	void updateVillage() {
-		int targetMushroom = Mathf.FloorToInt(bigMushroom.Length * score / winScore);
+		int targetMushroom = Mathf.FloorToInt((float)((bigMushroom.Length - 1) * score) / winScore);
 		if (currentMushroom < targetMushroom ) {
-			bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+			if (currentMushroom > 0) {
+				bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+			}
 			currentMushroom = targetMushroom;
 			bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 		}
-		int targetBuildings = Mathf.RoundToInt(buildingsAndShit.Length * score / winScore);
+		int targetBuildings = Mathf.RoundToInt((float)((buildingsAndShit.Length - 1) * score) / winScore);
 		if (currentBuildings < targetBuildings) {
 			currentBuildings = targetBuildings;
-			buildingsAndShit[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
+			buildingsAndShit[currentBuildings].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 		}
 	}
 
@@ -148,7 +152,7 @@ public class GameController : MonoBehaviour
 		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
 		if (AllayController.allies.Count < maxAllies) {			
 			if (respawnLock > 0 ) {
-				respawnLock -= Time.deltaTime;
+				respawnLock -= 1;
 			} else {
 				allay.transform.position = allaySpawn.position;
 				allay.GetComponent<UnitController>().damage = 20 + rages;
