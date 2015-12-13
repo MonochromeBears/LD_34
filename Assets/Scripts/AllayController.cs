@@ -60,7 +60,7 @@ public class AllayController : UnitController
 			if (!isBuilding) {
 				_FixedUpdate();
 				Move();
-				if (Mathf.Abs(transform.position.x - target.position.x) < 0.5) {
+				if (Mathf.Abs(transform.position.x - target.position.x) < 1) {
 					isBuilding = true;
 				}
 			}
