@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
 	private float[] buttonsState = {0f, 0f};
 
 	public static Transform alySpawn;
+	public static int hits = 0;
 	// Use this for initialization
 	void Start ()
 	{
@@ -82,6 +83,11 @@ public class GameController : MonoBehaviour
 			});
 		}
 
+		//mushroom health
+		if (hits > 0 ) {
+			hits--;
+			score--;
+		}
 	}
 
 	void SpawnWave()
