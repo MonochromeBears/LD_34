@@ -28,6 +28,7 @@ public class AllayController : UnitController
 				if (order == Order.BUILD) {
 					this.transform.localScale = new Vector3(3, 3, this.transform.localScale.z);
 					CollisionsOn();
+					isBuilding = false;
 				}
 				order = Order.NONE;
 			}
@@ -59,7 +60,7 @@ public class AllayController : UnitController
 			if (!isBuilding) {
 				_FixedUpdate();
 				Move();
-				if (Mathf.Abs(transform.position.x - target.position.x) < 16) {
+				if (Mathf.Abs(transform.position.x - target.position.x) < 0.5) {
 					isBuilding = true;
 				}
 			}
