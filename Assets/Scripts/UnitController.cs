@@ -8,6 +8,7 @@ public abstract class UnitController : MonoBehaviour {
 	public float hitSpeed = 0.5f;
 	public float speed = 5.0f;
 	public UnitController enemy;
+	public Transform target;
 	public LayerMask whatIsEnemy;
 	public bool facingRight = false;
 
@@ -69,9 +70,9 @@ public abstract class UnitController : MonoBehaviour {
 	}
 	
 	protected virtual void _updateDirection() {
-		if ( enemy != null ) {
-			bool enemyAtRight = enemy.transform.position.x >= transform.position.x;
-			if (enemyAtRight != facingRight) {
+		if ( target != null ) {
+			bool targetAtRight = target.position.x >= transform.position.x;
+			if (targetAtRight != facingRight) {
 				_Flip();
 			}
 		}

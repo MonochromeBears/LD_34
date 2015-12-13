@@ -46,7 +46,8 @@ public class EnemyController : UnitController
 				enemyClosest = en;
 	      	}
 	    }
-	    enemy = enemyClosest;
+		enemy = enemyClosest;
+		target = enemy.transform;
 	}
 }
 
