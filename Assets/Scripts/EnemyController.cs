@@ -24,6 +24,7 @@ public class EnemyController : UnitController
 				Move();
 			} else if(cooldown <= 0) {
 				Hit();
+				Stop();
 			}
 		} else {
 			target = GameController.alySpawn;

@@ -52,6 +52,7 @@ public class AllayController : UnitController
 					Move();
 				} else if(cooldown <= 0) {
 					Hit();
+					Stop();
 				}
 			} else {
 				if (order == Order.ATTACK) {
@@ -69,6 +70,8 @@ public class AllayController : UnitController
 				if (Mathf.Abs(transform.position.x - target.position.x) < 1) {
 					isBuilding = true;
 				}
+			} else {
+				Stop();
 			}
 		}
 	}

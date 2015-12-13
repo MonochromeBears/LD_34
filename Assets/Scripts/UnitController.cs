@@ -32,7 +32,11 @@ public abstract class UnitController : MonoBehaviour {
 		if (!pathIsBlocked) {
 			_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
 			animator.SetBool("isRun", true);
-    }
+    	}
+	}
+
+	public void Stop() {
+		_rigidbody2D.velocity = new Vector2(_rigidbody2D.velocity.x * 0.1, _rigidbody2D.velocity.y);
 	}
 
 	public void CollisionsOn() {
