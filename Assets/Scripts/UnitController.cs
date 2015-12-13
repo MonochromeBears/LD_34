@@ -11,12 +11,14 @@ public abstract class UnitController : MonoBehaviour {
 	public Transform target;
 	public LayerMask whatIsEnemy;
 	public bool facingRight = false;
+	public Animator animator;
 
 	protected int _health;
 	protected Rigidbody2D _rigidbody2D;
 	protected float cooldown = 0;
 	protected Transform enemyChecker;
 	private int baseLayer;
+
 	
 	public void Hit() {
 		enemy.TakeADamage(damage);
