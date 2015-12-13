@@ -11,6 +11,7 @@ public class GameController : MonoBehaviour
 	public float levelTime = 300f;
 	public float enemyRespawnTime = 0.5f;
 	public float allayRespawnTime = 3f;
+	public float respawnLock = 0f;
 	public GameObject allay;
 	public GameObject enemy;
 	public Transform[] enemySpawns;
@@ -51,6 +52,7 @@ public class GameController : MonoBehaviour
 				AllayController ally = AllayController.SelectFreeAlly();
 				if (ally != null ) {
 					ally.changeOrder(AllayController.Order.ATTACK, 30);
+					rages++;
 				}
 				print("Right Btn pressed");
 			}
@@ -97,10 +99,16 @@ public class GameController : MonoBehaviour
 	void RespawnAllies()
 	{
 		int maxAllies = 3 + Mathf.RoundToInt(3 * score / winScore);
-		if (AllayController.allies.Count < maxAllies) {
-			allay.transform.position = allaySpawn.position;
-			allay.GetComponent<UnitController>().damage = 20 + rages;
-			GameObject newAlly = Object.Instantiate(allay) as GameObject;
+		if (AllayController.allies.Count < maxAllies) {			
+			if (respawnLock > 0 ) {
+				respawnLock -= Time.deltaTime;
+			} else {
+				allay.transform.position = allaySpawn.position;
+				allay.GetComponent<UnitController>().damage = 20 + rages;
+				GameObject newAlly = Object.Instantiate(allay) as GameObject;
+			}
+		} else {
+			respawnLock = 10f;	//respawn start delay
 		}
 	}
 
