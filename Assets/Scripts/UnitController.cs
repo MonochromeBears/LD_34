@@ -25,7 +25,7 @@ public abstract class UnitController : MonoBehaviour {
 		enemy.TakeADamage(damage);
 		cooldown = hitSpeed;
 		animator.SetBool("isHit", true);
-		hitSound.Play();
+//		hitSound.Play();
 	}
 	
 	public void Move() {

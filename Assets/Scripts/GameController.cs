@@ -36,6 +36,7 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		scoreBarHeight = scoreBar.GetComponent<SpriteRenderer>().bounds.size.y;
 		countdown = levelTime;
 		allayRespawnCountdown = allayRespawnTime;
 		enemyRespawnCountdown = enemyRespawnTime;
@@ -180,7 +181,8 @@ public class GameController : MonoBehaviour
 	{
 		float scorebareScale = (float) score / winScore;
 		scoreBar.localScale = new Vector3(scoreBar.localScale.x, scorebareScale, scoreBar.localScale.z);
-		scoreBar.position.y = scoreBarPosYStart + scorebareScale * scoreBarHeight / 2;
+		float posScoreY = scoreBarPosYStart + scorebareScale * scoreBarHeight / 2 - scoreBarHeight/2;
+		scoreBar.position = new Vector3(scoreBar.position.x, posScoreY, scoreBar.position.z);
 		float sunbareScale = (levelTime - countdown) / levelTime;
 		timeBar.localScale = new Vector3(timeBar.localScale.x, sunbareScale, timeBar.localScale.z);
 	}

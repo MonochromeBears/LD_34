@@ -93,7 +93,7 @@ public class AllayController : UnitController
 		if (ord == Order.ATTACK) {
 			this.damage *= 2;
 			rage.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
-			berserkSound.Play();
+//			berserkSound.Play();
 		}
 		if (ord == Order.BUILD) {
 			heal.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
