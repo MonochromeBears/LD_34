@@ -16,6 +16,10 @@ public class GameController : MonoBehaviour
 	public GameObject enemy;
 	public Transform[] enemySpawns;
 	public Transform allaySpawn;
+	public Transform[] bigMushroom;
+	public Transform[] buildingsAndShit;
+	public int currentMushroom = 0;
+	public int currentBuildings = 0;
 	
 	private int enemiesToSpawnLeft = 0;
 	private float countdown;
@@ -32,6 +36,12 @@ public class GameController : MonoBehaviour
 		allayRespawnCountdown = allayRespawnTime;
 		enemyRespawnCountdown = enemyRespawnTime;
 		alySpawn = allaySpawn;
+		foreach (Transform trans in bigMushroom ) {
+			trans.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+		}
+		foreach (Transform trans in buildingsAndShit ) {
+			trans.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+		}
 	}
 	
 	// Update is called once per frame
@@ -85,8 +95,25 @@ public class GameController : MonoBehaviour
 
 		//mushroom health
 		if (hits > 0 ) {
-			hits--;
-			score--;
+			hits -= 1;
+			score -= 1;
+		}
+
+		updateVillage();
+	}
+
+	//score
+	void updateVillage() {
+		int targetMushroom = Mathf.FloorToInt(bigMushroom.Length * score / winScore);
+		if (currentMushroom < targetMushroom ) {
+			bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+			currentMushroom = targetMushroom;
+			bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
+		}
+		int targetBuildings = Mathf.RoundToInt(buildingsAndShit.Length * score / winScore);
+		if (currentBuildings < targetBuildings) {
+			currentBuildings = targetBuildings;
+			buildingsAndShit[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 		}
 	}
 
