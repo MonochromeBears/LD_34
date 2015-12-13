@@ -30,6 +30,7 @@ public class EnemyController : UnitController
 					cooldown = hitSpeed;
 				}
 			} else {
+				_FixedUpdate();
 				Move();
 			}
 		}
