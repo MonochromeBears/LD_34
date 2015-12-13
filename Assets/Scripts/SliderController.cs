@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SliderController : MonoBehaviour
 {
+	public int nextScene = 1;
+
 	private int currentSlide = 1;
 	private float[] buttonsState = {0f, 0f};
 	private Transform[] slides;
@@ -37,7 +39,7 @@ public class SliderController : MonoBehaviour
 			buttonsState[1] = rightBtn;
 			if (rightBtn == 1) {
 				if (currentSlide == slides.Length - 1) {
-					Application.LoadLevel(1);
+					Application.LoadLevel(nextScene);
 				} else {
 					slides[currentSlide].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 					currentSlide++;
