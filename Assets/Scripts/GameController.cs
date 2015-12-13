@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
 	public int waves = 0;
 	public float levelTime = 300f;
 	public float enemyRespawnTime = 0.5f;
-	public float allayRespawnTime = 3f;
+	public float allayRespawnTime = 1f;
 	public float respawnLock = 0f;
 	public GameObject allay;
 	public GameObject enemy;
@@ -23,12 +23,14 @@ public class GameController : MonoBehaviour
 	private float allayRespawnCountdown;
 	private float[] buttonsState = {0f, 0f};
 
+	public static Transform alySpawn;
 	// Use this for initialization
 	void Start ()
 	{
 		countdown = levelTime;
 		allayRespawnCountdown = allayRespawnTime;
 		enemyRespawnCountdown = enemyRespawnTime;
+		alySpawn = allaySpawn;
 	}
 	
 	// Update is called once per frame
