@@ -36,7 +36,7 @@ public abstract class UnitController : MonoBehaviour {
 	}
 
 	public void Stop() {
-		_rigidbody2D.velocity = new Vector2((float)_rigidbody2D.velocity.x * 0.1, _rigidbody2D.velocity.y);
+		_rigidbody2D.velocity = new Vector2((float)(_rigidbody2D.velocity.x * 0.1), _rigidbody2D.velocity.y);
 	}
 
 	public void CollisionsOn() {
