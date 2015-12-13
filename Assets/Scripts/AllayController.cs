@@ -67,6 +67,10 @@ public class AllayController : UnitController
 		}
 	}
 
+	void OnTriggerEnter2D(Collider2D col){
+		_Death();
+	}
+	
 	//for buttons usage
 	public static AllayController SelectFreeAlly() {
 		return allies.Find(a => a.order == Order.NONE);
