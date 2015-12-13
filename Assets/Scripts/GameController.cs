@@ -39,10 +39,15 @@ public class GameController : MonoBehaviour
 		countdown -= Time.deltaTime;
 		allayRespawnCountdown -= Time.deltaTime;
 
+
 		float leftBtn = Input.GetAxis("Fire1");
 		if (leftBtn != buttonsState[0]) {
 			buttonsState[0] = leftBtn;
 			if (leftBtn == 1) {
+				AllayController ally = AllayController.SelectFreeAlly();
+				if (ally != null ) {
+					ally.changeOrder(AllayController.Order.BUILD, 10);
+				}
 				print("Left Btn pressed");
 			}
 		}
@@ -68,6 +73,13 @@ public class GameController : MonoBehaviour
 		if (allayRespawnCountdown <= 0) {
 			RespawnAllies();
 			allayRespawnCountdown = allayRespawnTime;
+			//TODO: move somewhere else
+			//buidling - score calc
+			AllayController.allies.ForEach(ally => {
+				if (ally.isBuilding) {
+					score += 1;
+				}
+			});
 		}
 
 	}

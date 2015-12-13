@@ -11,6 +11,7 @@ public class AllayController : UnitController
 	}
 	public static List<AllayController> allies = new List<AllayController>();	Order order;
 	public float orderTimeLeft;
+	public bool isBuilding = false;
 
 	// Use this for initialization
 	
@@ -23,6 +24,10 @@ public class AllayController : UnitController
 				if (order == Order.ATTACK) {
 					damage /= 2;
 					this.transform.localScale = new Vector3(3, 3, this.transform.localScale.z);
+				}
+				if (order == Order.BUILD) {
+					this.transform.localScale = new Vector3(3, 3, this.transform.localScale.z);
+					CollisionsOn();
 				}
 				order = Order.NONE;
 			}
@@ -50,6 +55,14 @@ public class AllayController : UnitController
 					Move();
 				}
 			}
+		} else {
+			if (!isBuilding) {
+				_FixedUpdate();
+				Move();
+				if (Mathf.Abs(transform.position.x - target.position.x) < 16) {
+					isBuilding = true;
+				}
+			}
 		}
 	}
 
@@ -66,6 +79,12 @@ public class AllayController : UnitController
 			this.damage *= 2;
 			this.transform.localScale = new Vector3(6, 3, this.transform.localScale.z);
 		}
+		if (ord == Order.BUILD) {
+			this.transform.localScale = new Vector3(2, 3, this.transform.localScale.z);
+			CollisionsOff();
+			target = GameController.alySpawn.transform;
+		}
+		isBuilding = false;
 	}
 
 	//set enemy value
