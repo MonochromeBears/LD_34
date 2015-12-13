@@ -60,10 +60,10 @@ public class GameController : MonoBehaviour
 	void Update ()
 	{
 		if (score >= winScore) {
-			Application.LoadLevel(0);
+			Application.LoadLevel(3);
 		}
 		if (countdown <= 0) {
-			Application.LoadLevel(0);
+			Application.LoadLevel(4);
 		}
 		countdown -= Time.deltaTime;
 		allayRespawnCountdown -= Time.deltaTime;
