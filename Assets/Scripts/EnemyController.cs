@@ -20,6 +20,18 @@ public class EnemyController : UnitController
 			} else if(cooldown <= 0) {
 				Hit();
 			}
+		} else {
+			target = GameController.alySpawn;
+			if (Mathf.Abs(target.position.x - transform.position.x) < 16 ) {
+				cooldown -= Time.deltaTime;
+				if(cooldown <= 0) {					
+					//Hit the mushroom
+					GameController.hits++;
+					cooldown = hitSpeed;
+				}
+			} else {
+				Move();
+			}
 		}
 
 //		_Move();
