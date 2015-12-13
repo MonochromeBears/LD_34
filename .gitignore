@@ -23,3 +23,4 @@ sysinfo.txt
 # System & soft
 .DS_Store
 /ProjectSettings
+/Assets/Sounds/*.meta
