@@ -20,6 +20,8 @@ public class GameController : MonoBehaviour
 	public Transform[] buildingsAndShit;
 	public int currentMushroom = -1;
 	public int currentBuildings = -1;
+	public Transform scoreBar;
+	public Transform timeBar;
 	
 	private int enemiesToSpawnLeft = 0;
 	private float countdown;
@@ -108,6 +110,7 @@ public class GameController : MonoBehaviour
 		}
 
 		updateVillage();
+		updateBars();
 	}
 
 	//score
@@ -170,10 +173,18 @@ public class GameController : MonoBehaviour
 		}
 	}
 
-	void OnGUI()
+	void updateBars()
 	{
-		GUI.Box(new Rect (0, 0, 200, 25), "Left time: " + (countdown / 60));
-		GUI.Box(new Rect (0, 25, 200, 25), "Score: " + (score));
+		float scorebareScale = (float) score / winScore;
+		scoreBar.localScale = new Vector3(scoreBar.localScale.x, scorebareScale, scoreBar.localScale.z);
+		float sunbareScale = (levelTime - countdown) / levelTime;
+		timeBar.localScale = new Vector3(timeBar.localScale.x, sunbareScale, timeBar.localScale.z);
 	}
+
+//	void OnGUI()
+//	{
+//		GUI.Box(new Rect (0, 0, 200, 25), "Left time: " + (countdown / 60));
+//		GUI.Box(new Rect (0, 25, 200, 25), "Score: " + (score / winScore));
+//	}
 }
 
