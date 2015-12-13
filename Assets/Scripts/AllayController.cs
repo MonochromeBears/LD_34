@@ -45,6 +45,7 @@ public class AllayController : UnitController
 				if (order == Order.ATTACK) {
 					CollisionsOff();
 					enemy = null;
+					target = null;
 					_FixedUpdate();
 					Move();
 				}
@@ -98,6 +99,7 @@ public class AllayController : UnitController
 			}
 		}
 		enemy = enemyClosest;
+		target = enemy.transform;
 	}
 	public override void Start ()
 	{
