@@ -11,7 +11,8 @@ public class EnemyController : UnitController
 	void Update()
 	{
 		animator.SetBool("isRun", false);
-		if (cooldown <= 0) {
+		cooldown -= Time.deltaTime;
+    	if (cooldown <= 0) {
 			animator.SetBool("isHit", false);
     	}
 		if (AllayController.allies.Count > 0) {
@@ -27,7 +28,6 @@ public class EnemyController : UnitController
 		} else {
 			target = GameController.alySpawn;
 			if (Mathf.Abs(target.position.x - transform.position.x) < 1 ) {
-				cooldown -= Time.deltaTime;
 				if(cooldown <= 0) {					
 					//Hit the mushroom
 					GameController.hits++;

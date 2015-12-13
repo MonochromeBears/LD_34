@@ -19,7 +19,8 @@ public class AllayController : UnitController
 	void Update ()
 	{
 		animator.SetBool("isRun", false);
-		if (cooldown <= 0) {
+		cooldown -= Time.deltaTime;
+    	if (cooldown <= 0) {
 			animator.SetBool("isHit", false);
 		}
 		if (order != Order.NONE) {
@@ -45,7 +46,6 @@ public class AllayController : UnitController
 				_FixedUpdate();
 
 				bool enemyIsNear = Physics2D.Linecast(transform.position, enemyChecker.position, whatIsEnemy);
-				cooldown -= Time.deltaTime;
 				if (!enemyIsNear) {
 					Move();
 				} else if(cooldown <= 0) {
