@@ -49,6 +49,12 @@ public class GameController : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		if (score >= winScore) {
+			Application.LoadLevel(0);
+		}
+		if (countdown <= 0) {
+			Application.LoadLevel(0);
+		}
 		countdown -= Time.deltaTime;
 		allayRespawnCountdown -= Time.deltaTime;
 
@@ -61,7 +67,6 @@ public class GameController : MonoBehaviour
 				if (ally != null ) {
 					ally.changeOrder(AllayController.Order.BUILD, 10);
 				}
-				print("Left Btn pressed");
 			}
 		}
 
@@ -74,7 +79,6 @@ public class GameController : MonoBehaviour
 					ally.changeOrder(AllayController.Order.ATTACK, 30);
 					rages++;
 				}
-				print("Right Btn pressed");
 			}
 		}
 
@@ -98,7 +102,9 @@ public class GameController : MonoBehaviour
 		//mushroom health
 		if (hits > 0 ) {
 			hits -= 1;
-			score -= 1;
+			if (score > 0) {
+				score -= 1;
+			}
 		}
 
 		updateVillage();
