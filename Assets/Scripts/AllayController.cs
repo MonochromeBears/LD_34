@@ -12,6 +12,8 @@ public class AllayController : UnitController
 	public static List<AllayController> allies = new List<AllayController>();	Order order;
 	public float orderTimeLeft;
 	public bool isBuilding = false;
+	public Transform heal;
+	public Transform rage;
 
 	// Use this for initialization
 	
@@ -28,10 +30,10 @@ public class AllayController : UnitController
 			if (orderTimeLeft < 0 ) {
 				if (order == Order.ATTACK) {
 					damage /= 2;
-					this.transform.localScale = new Vector3(3, 3, this.transform.localScale.z);
+					rage.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 				}
 				if (order == Order.BUILD) {
-					this.transform.localScale = new Vector3(3, 3, this.transform.localScale.z);
+					heal.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 					CollisionsOn();
 					isBuilding = false;
 				}
@@ -86,10 +88,10 @@ public class AllayController : UnitController
 		this.orderTimeLeft = duration;
 		if (ord == Order.ATTACK) {
 			this.damage *= 2;
-			this.transform.localScale = new Vector3(6, 3, this.transform.localScale.z);
+			rage.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 		}
 		if (ord == Order.BUILD) {
-			this.transform.localScale = new Vector3(2, 3, this.transform.localScale.z);
+			heal.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,1f);
 			CollisionsOff();
 			target = GameController.alySpawn.transform;
 		}
@@ -134,6 +136,8 @@ public class AllayController : UnitController
 		base.Start();
 		order = Order.NONE;
 		allies.Add(this);
+		heal.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
+		rage.GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 	}
 	
 	public override void _Death()
