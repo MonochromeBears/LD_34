@@ -80,7 +80,7 @@ public class GameController : MonoBehaviour
 			if (leftBtn == 1) {
 				AllayController ally = AllayController.SelectFreeAlly();
 				if (ally != null ) {
-					ally.changeOrder(AllayController.Order.BUILD, 10);
+					ally.changeOrder(AllayController.Order.BUILD, 5);
 				}
 			}
 		}
@@ -91,7 +91,7 @@ public class GameController : MonoBehaviour
 			if (rightBtn == 1) {
 				AllayController ally = AllayController.SelectFreeAlly();
 				if (ally != null ) {
-					ally.changeOrder(AllayController.Order.ATTACK, 30);
+					ally.changeOrder(AllayController.Order.ATTACK, 15);
 					rages++;
 				}
 			}

@@ -152,5 +152,15 @@ public class AllayController : UnitController
 		}
 		base._Death();
 	}
+	
+	public override void TakeADamage(int dmg) {
+		if (order == Order.BUILD) {
+			dmg = dmg * 2;
+		} else if(order == Order.ATTACK) {
+			dmg = Mathf.CeilToInt((float) 0.8 * dmg);
+		}
+
+		base.TakeADamage(dmg);
+	}
 }
 

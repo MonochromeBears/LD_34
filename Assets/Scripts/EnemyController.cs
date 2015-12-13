@@ -33,6 +33,7 @@ public class EnemyController : UnitController
 				if(cooldown <= 0) {					
 					//Hit the mushroom
 					GameController.hits++;
+					animator.SetBool("isHit", true);
 					cooldown = hitSpeed;
 				}
 			} else {
