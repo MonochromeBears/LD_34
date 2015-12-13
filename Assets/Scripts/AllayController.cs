@@ -19,6 +19,9 @@ public class AllayController : UnitController
 	void Update ()
 	{
 		animator.SetBool("isRun", false);
+		if (cooldown <= 0) {
+			animator.SetBool("isHit", false);
+		}
 		if (order != Order.NONE) {
 			orderTimeLeft -= Time.deltaTime;
 			if (orderTimeLeft < 0 ) {
@@ -45,7 +48,6 @@ public class AllayController : UnitController
 				cooldown -= Time.deltaTime;
 				if (!enemyIsNear) {
 					Move();
-					animator.SetBool("isRun", true);
 				} else if(cooldown <= 0) {
 					Hit();
 				}
@@ -132,7 +134,6 @@ public class AllayController : UnitController
 		base.Start();
 		order = Order.NONE;
 		allies.Add(this);
-		animator = GetComponent<Animator>();
 	}
 	
 	public override void _Death()

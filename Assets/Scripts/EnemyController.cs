@@ -10,6 +10,10 @@ public class EnemyController : UnitController
 	// Update is called once per frame
 	void Update()
 	{
+		animator.SetBool("isRun", false);
+		if (cooldown <= 0) {
+			animator.SetBool("isHit", false);
+    	}
 		if (AllayController.allies.Count > 0) {
 			findNearestAlly();
 			_FixedUpdate();

@@ -23,6 +23,7 @@ public abstract class UnitController : MonoBehaviour {
 	public void Hit() {
 		enemy.TakeADamage(damage);
 		cooldown = hitSpeed;
+		animator.SetBool("isHit", true);
 	}
 	
 	public void Move() {
@@ -30,7 +31,8 @@ public abstract class UnitController : MonoBehaviour {
 		bool pathIsBlocked = Physics2D.Linecast(enemyChecker.position, enemyChecker.position, 1 << gameObject.layer);
 		if (!pathIsBlocked) {
 			_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
-		}
+			animator.SetBool("isRun", true);
+    }
 	}
 
 	public void CollisionsOn() {
@@ -61,6 +63,7 @@ public abstract class UnitController : MonoBehaviour {
 		enemyChecker = transform.Find("enemyChecker");
 		_health = healthMax;
 		_rigidbody2D = GetComponent<Rigidbody2D>();
+		animator = GetComponent<Animator>();
 	}
 
 	protected virtual void _FixedUpdate() {
