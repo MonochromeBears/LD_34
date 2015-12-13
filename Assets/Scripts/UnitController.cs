@@ -15,6 +15,7 @@ public abstract class UnitController : MonoBehaviour {
 	protected Rigidbody2D _rigidbody2D;
 	protected float cooldown = 0;
 	protected Transform enemyChecker;
+	private int baseLayer;
 	
 	public void Hit() {
 		enemy.TakeADamage(damage);
@@ -27,6 +28,14 @@ public abstract class UnitController : MonoBehaviour {
 		if (!pathIsBlocked) {
 			_rigidbody2D.velocity = new Vector2(usedSpeed, _rigidbody2D.velocity.y);
 		}
+	}
+
+	public void CollisionsOn() {
+		gameObject.layer = baseLayer;
+	}
+
+	public void CollisionsOff() {
+		gameObject.layer = 4;
 	}
 
 	private void _Flip() {
@@ -45,6 +54,7 @@ public abstract class UnitController : MonoBehaviour {
 	}
 	
 	public virtual void Start() {
+		baseLayer = gameObject.layer;
 		enemyChecker = transform.Find("enemyChecker");
 		_health = healthMax;
 		_rigidbody2D = GetComponent<Rigidbody2D>();
@@ -59,9 +69,11 @@ public abstract class UnitController : MonoBehaviour {
 	}
 	
 	protected virtual void _updateDirection() {
-		bool enemyAtRight = enemy.transform.position.x >= transform.position.x;
-		if (enemyAtRight != facingRight) {
-			_Flip();
+		if ( enemy != null ) {
+			bool enemyAtRight = enemy.transform.position.x >= transform.position.x;
+			if (enemyAtRight != facingRight) {
+				_Flip();
+			}
 		}
 	}
 	

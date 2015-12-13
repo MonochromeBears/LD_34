@@ -29,6 +29,7 @@ public class AllayController : UnitController
 		}
 		if (order != Order.BUILD) {
 			if (EnemyController.enemies.Count > 0 ) {
+				CollisionsOn();
 				FindTargetEnemy();
 
 				_FixedUpdate();
@@ -39,6 +40,13 @@ public class AllayController : UnitController
 					Move();
 				} else if(cooldown <= 0) {
 					Hit();
+				}
+			} else {
+				if (order == Order.ATTACK) {
+					CollisionsOff();
+					enemy = null;
+					_FixedUpdate();
+					Move();
 				}
 			}
 		}
