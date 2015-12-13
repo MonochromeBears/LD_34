@@ -128,7 +128,7 @@ public class GameController : MonoBehaviour
 				GameObject newAlly = Object.Instantiate(allay) as GameObject;
 			}
 		} else {
-			respawnLock = 1000000000f;	//respawn start delay
+			respawnLock = 10f;	//respawn start delay
 		}
 	}
 
