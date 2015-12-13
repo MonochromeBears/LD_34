@@ -22,7 +22,7 @@ public class EnemyController : UnitController
 			}
 		} else {
 			target = GameController.alySpawn;
-			if (Mathf.Abs(target.position.x - transform.position.x) < 16 ) {
+			if (Mathf.Abs(target.position.x - transform.position.x) < 0.5 ) {
 				cooldown -= Time.deltaTime;
 				if(cooldown <= 0) {					
 					//Hit the mushroom
