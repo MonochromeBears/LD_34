@@ -108,7 +108,7 @@ public class GameController : MonoBehaviour
 	void updateVillage() {
 		int targetMushroom = Mathf.FloorToInt((float)((bigMushroom.Length - 1) * score) / winScore);
 		if (currentMushroom < targetMushroom ) {
-			if (currentMushroom > 0) {
+			if (currentMushroom >= 0) {
 				bigMushroom[currentMushroom].GetComponent<SpriteRenderer>().color = new Color(1f,1f,1f,0f);
 			}
 			currentMushroom = targetMushroom;
